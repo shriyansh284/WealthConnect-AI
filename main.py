@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 genai.configure(api_key=GEMINI_API_KEY)
 
-app = FastAPI(title="RM Insight Editor and Sender", version="1.0.0")
+app = FastAPI(title="WealthConnect AI", version="1.0.0")
 
 # CORS
 allow_origins = ["*"] if CORS_ALLOW_ORIGINS == "*" else [o.strip() for o in CORS_ALLOW_ORIGINS.split(",") if o.strip()]

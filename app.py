@@ -6,7 +6,7 @@ import json
 API_BASE = "http://localhost:8000"
 
 st.set_page_config(
-    page_title="BCL Sales Pitch Generator",
+    page_title="WealthConnect AI",
     page_icon="💼",
     layout="wide",
 )
