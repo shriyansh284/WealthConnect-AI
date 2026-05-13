@@ -3,6 +3,7 @@ from app.model import InsightRequest, ApprovalRequest
 from app.prompts import STATIC_EDIT_PROMPT, REFINEMENT_PROMPT
 from app.utils import resolve_model
 import google.generativeai as genai
+import asyncio
 import logging
 
 logger = logging.getLogger(__name__)
@@ -40,7 +41,7 @@ async def process_edit_insight(req: InsightRequest, gemini_model: str) -> dict:
         )
         
         model = genai.GenerativeModel(resolve_model(gemini_model))
-        response = model.generate_content(prompt)
+        response = await asyncio.to_thread(model.generate_content, prompt)
         edited = (response.text or "").strip()
         
         if not edited:
@@ -92,7 +93,7 @@ async def process_approval(req: ApprovalRequest, gemini_model: str) -> dict:
             )
             
             model = genai.GenerativeModel(resolve_model(gemini_model))
-            response = model.generate_content(prompt)
+            response = await asyncio.to_thread(model.generate_content, prompt)
             edited_again = (response.text or "").strip()
             
             if not edited_again:

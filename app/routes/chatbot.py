@@ -3,6 +3,7 @@ from app.model import ChatMessage, ChatResponse
 from app.prompts import CHATBOT_PROMPT
 from app.utils import resolve_model
 import google.generativeai as genai
+import asyncio
 import logging
 
 logger = logging.getLogger(__name__)
@@ -35,7 +36,7 @@ async def draft_message(req: ChatMessage, gemini_model: str) -> dict:
         )
         
         model = genai.GenerativeModel(resolve_model(gemini_model))
-        response = model.generate_content(prompt)
+        response = await asyncio.to_thread(model.generate_content, prompt)
         drafted_message = (response.text or "").strip()
         
         if not drafted_message:

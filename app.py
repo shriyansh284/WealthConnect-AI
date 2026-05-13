@@ -65,7 +65,7 @@ st.markdown("""
 # ── Helpers ──────────────────────────────────────────────────────────────────
 def api_post(endpoint: str, payload: dict):
     try:
-        r = requests.post(f"{API_BASE}{endpoint}", json=payload, timeout=30)
+        r = requests.post(f"{API_BASE}{endpoint}", json=payload, timeout=60)
         r.raise_for_status()
         return r.json(), None
     except requests.exceptions.ConnectionError:
@@ -81,7 +81,7 @@ def api_post(endpoint: str, payload: dict):
 
 def api_get(endpoint: str):
     try:
-        r = requests.get(f"{API_BASE}{endpoint}", timeout=10)
+        r = requests.get(f"{API_BASE}{endpoint}", timeout=15)
         r.raise_for_status()
         return r.json(), None
     except requests.exceptions.ConnectionError:
